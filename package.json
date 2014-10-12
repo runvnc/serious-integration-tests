@@ -1,0 +1,25 @@
+{
+  "name": "serious-integration-tests",
+  "version": "0.0.0",
+  "description": "This tests everything working together.   It starts first up a server (normally would run on EC2, here runs on localhost), and a client REST API server (normally would run on the Beaglebone, for testing runs on localhost). Redis should be running.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "should": ""
+  },
+  "scripts": {
+    "test": "./localtests.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/runvnc/serious-integration-tests.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/runvnc/serious-integration-tests/issues"
+  },
+  "homepage": "https://github.com/runvnc/serious-integration-tests"
+}

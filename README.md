@@ -1,3 +1,5 @@
+To run local tests use the `./localtests.sh` command.  Note that you must have `mocha` and `pgrep` installed.
+
 This tests everything working together.  
 It starts first up a server (normally would run on EC2, here runs on localhost),
 and a client REST API server (normally would run on the Beaglebone, for testing runs on localhost).
@@ -8,4 +10,3 @@ In the process it tests the function and integration of the server (with its RES
 the client REST API server (and the library module it uses), and the client SDK that connects to the 
 client REST API Server.
 
-To run local tests use the `./localtests.sh` command.  Note that you must have `pgrep` installed.

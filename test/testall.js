@@ -1,5 +1,4 @@
 var should = require('should')
-  , sinon = require('sinon')
   , sdk = require('../serious-backup-device-sdk');
 
 describe('backup complete integration', function() {
@@ -13,7 +12,7 @@ describe('backup complete integration', function() {
     } else {
       var local = require('./localsetup');
       local.beforeTests(done);
-    })
+    }
   })
  
   describe('#backup()', function() {

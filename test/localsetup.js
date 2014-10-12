@@ -3,15 +3,20 @@ var should = require('should')
 
 checkRunning = function(match, cb) {
   console.log("Running pgrep to check if " + match + " is already running.");
-  console.log("Note that this won't work if there is no pgrep (did " +
-              "you start the test using the localtests.sh script?");
+  console.log("(make sure you start the test using the localtests.sh script)");
 
-  childproc.exec('pgrep -fx ' + match + ' 2>&1', function(e,out,er) {
+  childproc.exec('pgrep -f ' + match + ' 2>&1', function(e,out,er) {
     if (e) {
+      console.log('problem with running check for device API server');
+      console.log(e);
       cb(false);
     } else if (out.length>3) {
       cb(true);
     } else {
+      console.log("apiserver.js seems to not be running");
+      console.log(e);
+      console.log(out);
+      console.log(er);
       cb(false);
     }
   });
@@ -42,4 +47,4 @@ beforeTests = function(done) {
   });
 }
 
-exports.beforeTests = beforeTests();
+exports.beforeTests = beforeTests;
