@@ -1,0 +1,9 @@
+[submodule "serious-backup-device-sdk"]
+	path = serious-backup-device-sdk
+	url = git@github.com:runvnc/serious-backup-device-sdk.git
+[submodule "serious-backup-server"]
+	path = serious-backup-server
+	url = git@bitbucket.org:ithkuil/serious-backup-server.git
+[submodule "serious-backup-device"]
+	path = serious-backup-device
+	url = git@bitbucket.org:ithkuil/serious-backup-device.git
