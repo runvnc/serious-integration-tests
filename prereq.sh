@@ -22,3 +22,25 @@ echo Verifying this is installed.
 
 sudo apt-get install procps >/dev/null
 
+echo Testing for redis running.
+if pgrep -f redis-server >/dev/null 2>&1; then
+  echo Redis is running.
+else
+  echo Redis is not running.  Make sure redis is installed and running.
+  exit 2
+fi
+
+echo Starting device server if necessary.
+
+if pgrep -f apiserver.js >/dev/null 2>&1; then
+  echo Device backup server is running.
+else
+  echo Starting device backup server.
+  set -e
+  cd serious-backup-device && npm start &
+  cd ..
+  set +e
+  echo Waiting a few seconds so backup device server can start.
+  sleep 5
+fi
+

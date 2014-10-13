@@ -25,9 +25,9 @@ describe('backup complete integration', function() {
     })
   })
 
-  describe('#getGeneralStatus()', function() {
+  describe('#generalStatus()', function() {
     it('should indicate a backup is running', function(done) {
-      sdk.getGeneralStatus(function(currStatus) {
+      sdk.generalStatus(function(currStatus) {
         currStatus.should.be.ok;    
         done();
       });   
