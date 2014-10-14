@@ -28,3 +28,4 @@ pkill -f apiserver.js
 
 echo "Killing backup server"
 pkill -f server.js
+
