@@ -7,3 +7,12 @@
 [submodule "serious-backup-device"]
 	path = serious-backup-device
 	url = git@bitbucket.org:ithkuil/serious-backup-device.git
+	master = master
+[serious-backup-device-sdk]
+	master = master
+[submodule "serious-backu-device"]
+	master = master
+[serious-backup-server]
+	master = master
+[serious-backup-device]
+	master = master

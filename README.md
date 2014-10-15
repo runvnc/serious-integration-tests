@@ -1,5 +1,8 @@
 To run local tests use the `./localtests.sh` command.  Note that you must have `mocha` and `pgrep` installed.
 
+If one of the other projects changes you can run the `./updatesubmodules.sh` script to pull those remote changes.
+Don't want to do that if you make changes in the the submodules working dirs.
+
 This tests everything working together.  
 It starts first up a server (normally would run on EC2, here runs on localhost),
 and a client REST API server (normally would run on the Beaglebone, for testing runs on localhost).
