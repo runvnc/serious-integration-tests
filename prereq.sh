@@ -26,6 +26,7 @@ echo Making sure submodules are installed.
 git submodule init >/dev/null
 git submodule update >/dev/null
 
+echo Running install in serious-backup-device dir
 cd serious-backup-device && npm install; cd .. > /dev/null
 cd serious-backup-server && npm install; cd .. >/dev/null
 cd serious-backup-device-sdk && npm install; cd .. >/dev/null
@@ -43,29 +44,27 @@ else
   exit 2
 fi
 
-echo Starting device server if necessary.
+if pgrep -f "node server.js" >/dev/null 2>&1; then
+  echo "(Cloud) Backup server is running."
+else
+  echo "Starting (cloud) backup server."  
+  export NODE_TLS_REJECT_UNAUTHORIZED=0
+  set -e
+  cd serious-backup-server && NODE_TLS_REJECT_UNAUTHORIZED=0 npm start &
+  set +e
+  echo Waiting a few seconds so server can start.
+  sleep 5
+fi
 
 if pgrep -f apiserver.js >/dev/null 2>&1; then
   echo Device backup server is running.
 else
   echo Starting device backup server.
+  export NODE_TLS_REJECT_UNAUTHORIZED=0
   set -e
-  cd serious-backup-device && npm start &
-  cd ..
+  cd serious-backup-device && NODE_TLS_REJECT_UNAUTHORIZED=0 npm start &
   set +e
   echo Waiting a few seconds so backup device server can start.
-  sleep 5
-fi
-
-if pgrep -f "node server.js" >/dev/null 2>&1; then
-  echo "(Cloud) Backup server is running."
-else
-  echo "Starting (cloud) backup server."
-  set -e
-  cd serious-backup-server && npm start &
-  cd ..
-  set +e
-  echo Waiting a few seconds so server can start.
   sleep 5
 fi
 

@@ -7,6 +7,8 @@ set -e
 pgrep --help >/dev/null
 pkill --help >/dev/null
 
+set +e
+
 echo Making sure submodules are downloaded.
 if [ ! -f "serious-backup-device/package.json" ]; then
   echo "No serious-backup-device module found"
