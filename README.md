@@ -1,6 +1,6 @@
 To run local tests use the `./localtests.sh` command.  Note that you must have `mocha` and `pgrep` installed.
 
-If one of the other projects changes you can run the `./updatesubmodules.sh` script to pull those remote changes.
+If one of the other projects changes you can run the `./pullsubmodules.sh` script to pull those remote changes.
 Don't want to do that if you make changes in the the submodules working dirs.
 
 This tests everything working together.  
