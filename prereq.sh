@@ -23,13 +23,16 @@ echo Making sure submodules are installed.
 
 # check if the folders exist
 # if they do then don't do anything
-git submodule init >/dev/null
-git submodule update >/dev/null
 
-echo Running install in serious-backup-device dir
-cd serious-backup-device && npm install; cd .. > /dev/null
-cd serious-backup-server && npm install; cd .. >/dev/null
-cd serious-backup-device-sdk && npm install; cd .. >/dev/null
+if [ ! -d "serious-backup-device" ]; then
+  git submodule init >/dev/null
+  git submodule update >/dev/null
+
+  echo Running install in serious-backup-device dir
+  cd serious-backup-device && npm install; cd .. > /dev/null
+  cd serious-backup-server && npm install; cd .. >/dev/null
+  cd serious-backup-device-sdk && npm install; cd .. >/dev/null
+fi
 
 echo The test uses pgrep to check if servers are already running.
 echo Verifying this is installed.
