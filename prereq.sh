@@ -1,5 +1,25 @@
 #!/bin/bash
 
+echo Linux required.
+platform='unknown'
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+  platform='linux'
+  echo Linux detected. 
+else
+  echo uname output is $unamestr.
+  echo Linux not found. This system only works on linux, sorry. Exiting.
+  exit 2
+fi
+
+echo Need pm2
+if hash pm2 2>/dev/null; then
+  echo pm2 found.
+else
+  echo pm2 not found, installing.
+  npm install -g pm2
+fi
+
 echo Need 0mq 3.2 series installed.
 
 if [ $(dpkg-query -W -f='${Status}' nano 2>/dev/null | grep -c "ok installed") -eq 0 ];
@@ -46,6 +66,10 @@ else
   echo Redis is not running.  Make sure redis is installed and running.
   exit 2
 fi
+
+pm2 flush
+pm2 logs job-processor &
+pm2 logs receive-server &
 
 if pgrep -f "node server.js" >/dev/null 2>&1; then
   echo "(Cloud) Backup server is running."

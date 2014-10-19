@@ -17,6 +17,7 @@ describe('backup complete integration', function() {
  
   describe('#backup()', function() {
     it('should start the backup and return a backup key', function(done) {
+      this.timeout(10000);
       sdk.backup(function(key) {
         key.should.be.ok;
         key.length.should.be.greaterThan(4);
@@ -27,12 +28,17 @@ describe('backup complete integration', function() {
   })
 
   describe('#generalStatus()', function() {
-   
     it('should indicate a backup is running', function(done) {
-      //sdk.generalStatus(function(currStatus) {
-      //  currStatus.should.be.ok;    
-        done();
-      //});   
+      this.timeout(21000);
+      sdk.generalStatus(function(currStatus) {
+        currStatus.should.be.ok;
+        console.log("General status:"); 
+        console.log(currStatus);
+        console.log("Waiting for backup to finish..");
+        setTimeout(function() {
+          done();
+        }, 20000);
+      });   
     })
   })
   

@@ -20,6 +20,12 @@ if [ ! -f "serious-backup-server/package.json" ]; then
   exit 1
 fi
 
+echo Outputting logs from job-processor and receive-server.
+
+pm2 flush
+pm2 logs job-processor &
+pm2 logs receive-server &
+
 echo Running tests on local system with mocha.
 
 export NODE_TLS_REJECT_UNAUTHORIZED=0
@@ -30,4 +36,12 @@ pkill -f apiserver.js
 
 echo "Killing backup server"
 pkill -f server.js
+
+echo "Stopping job-processor"
+pm2 stop job-processor
+pkill -f job-processor
+
+pm2 stop receive-server
+pkill -f receive-server
+
 
