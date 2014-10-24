@@ -12,8 +12,9 @@ else
   exit 2
 fi
 
-echo You need the new 0mq rc version 4.1.0 http://download.zeromq.org/zeromq-4.1.0-rc1.tar.gz and also libsodium https://download.libsodium.org/libsodium/releases/libsodium-1.0.0.tar.gz installed.
-echo If you aren't sure please cancel and make sure they are installed.
+echo "You need the new 0mq rc version 4.1.0 http://download.zeromq.org/zeromq-4.1.0-rc1.tar.gz and also libsodium https://download.libsodium.org/libsodium/releases/libsodium-1.0.0.tar.gz installed."
+echo "Make sure libsodium is installed first, then zeromq."
+echo "If you aren't sure please cancel and make sure they are installed."
 read input
 
 echo Need pm2
@@ -22,15 +23,6 @@ if hash pm2 2>/dev/null; then
 else
   echo pm2 not found, installing.
   npm install -g pm2
-fi
-
-echo Need 0mq 3.2 series installed.
-
-if [ $(dpkg-query -W -f='${Status}' nano 2>/dev/null | grep -c "ok installed") -eq 0 ];
-then
-  sudo apt-get --force-yes --yes install libzmq3-dev
-else
-  echo 0mq is installed.
 fi
 
 echo We need mocha to run tests
@@ -70,9 +62,6 @@ else
   echo Redis is not running.  Make sure redis is installed and running.
   exit 2
 fi
-
-pm2 flush
-pm2 logs &
 
 if pgrep -f "node server.js" >/dev/null 2>&1; then
   echo "(Cloud) Backup server is running."

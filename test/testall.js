@@ -14,6 +14,15 @@ describe('backup complete integration', function() {
       local.beforeTests(done);
     }
   })
+
+  describe('#qrimagetag()', function() {
+    it('should return an image tag', function(done) {
+      sdk.QRImageTag('dummy-backup-key', function(tag) {
+        it.should.match(/\<img(.)*/);
+        done();
+      });
+    });
+  });
  
   describe('#backup()', function() {
     it('should start the backup and return a backup key', function(done) {
@@ -39,12 +48,33 @@ describe('backup complete integration', function() {
           if (currStatus.activeCount == 0) {
             return done();
           } else {
-            setTimeout(function() { checkFinished(); }, 1000);
+            setTimeout(function() { checkFinished(); }, 15000);
           }
         });
       }
       checkFinished();
     })
   })
-  
+ 
+  describe('#restore()', function() {
+    it('should restore a backup', function(done) {
+      this.timeout(21000); 
+      sdk.restore(function(ret) {
+        ret.should.be.ok;
+        setTimeout(function() { done(); }, 15000);
+      });
+     });
+  });
+
+  describe('#listBackups()', function() {
+    it('should list backups', function(done) {
+      sdk.listBackups(function(ret) {
+        ret.length.should.be.above(0);
+        console.log("backups:");
+        console.log(ret);
+        done();
+      });
+    });
+  });
+ 
 });

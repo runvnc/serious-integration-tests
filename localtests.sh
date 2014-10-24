@@ -22,9 +22,7 @@ fi
 
 echo Outputting logs from job-processor and file-server.
 
-pm2 flush
-pm2 logs job-processor &
-pm2 logs file-server &
+tail -f ~/.pm2/logs/* | bunyan -o short &
 
 echo Running tests on local system with mocha.
 
@@ -47,3 +45,7 @@ pm2 stop file-server
 pkill -f file-server
 
 pm2 stop file-server
+pkill -f node
+
+rm ~/.pm2/logs/*
+
