@@ -22,7 +22,8 @@ describe('backup complete integration', function() {
         key.should.be.ok;
         key.length.should.be.greaterThan(4);
         backupKey = key;
-        done();
+        // wait a second for backup to start.
+        setTimeout(function(){ done(); },1000);        
       });
     })
   })
@@ -30,15 +31,19 @@ describe('backup complete integration', function() {
   describe('#generalStatus()', function() {
     it('should indicate a backup is running', function(done) {
       this.timeout(21000);
-      sdk.generalStatus(function(currStatus) {
-        currStatus.should.be.ok;
-        console.log("General status:"); 
-        console.log(currStatus);
-        console.log("Waiting for backup to finish..");
-        setTimeout(function() {
-          done();
-        }, 20000);
-      });   
+      checkFinished = function() {
+        sdk.generalStatus(function(currStatus) {
+          currStatus.should.be.ok;
+          console.log("current status:");
+          console.log(currStatus);
+          if (currStatus.activeCount == 0) {
+            return done();
+          } else {
+            setTimeout(function() { checkFinished(); }, 1000);
+          }
+        });
+      }
+      checkFinished();
     })
   })
   

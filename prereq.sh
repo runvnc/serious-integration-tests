@@ -12,6 +12,10 @@ else
   exit 2
 fi
 
+echo You need the new 0mq rc version 4.1.0 http://download.zeromq.org/zeromq-4.1.0-rc1.tar.gz and also libsodium https://download.libsodium.org/libsodium/releases/libsodium-1.0.0.tar.gz installed.
+echo If you aren't sure please cancel and make sure they are installed.
+read input
+
 echo Need pm2
 if hash pm2 2>/dev/null; then
   echo pm2 found.
@@ -68,8 +72,7 @@ else
 fi
 
 pm2 flush
-pm2 logs job-processor &
-pm2 logs receive-server &
+pm2 logs &
 
 if pgrep -f "node server.js" >/dev/null 2>&1; then
   echo "(Cloud) Backup server is running."

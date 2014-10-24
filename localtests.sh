@@ -20,11 +20,11 @@ if [ ! -f "serious-backup-server/package.json" ]; then
   exit 1
 fi
 
-echo Outputting logs from job-processor and receive-server.
+echo Outputting logs from job-processor and file-server.
 
 pm2 flush
 pm2 logs job-processor &
-pm2 logs receive-server &
+pm2 logs file-server &
 
 echo Running tests on local system with mocha.
 
@@ -37,11 +37,13 @@ pkill -f apiserver.js
 echo "Killing backup server"
 pkill -f server.js
 
+pkill -f file-server.js
+
 echo "Stopping job-processor"
 pm2 stop job-processor
 pkill -f job-processor
 
-pm2 stop receive-server
-pkill -f receive-server
+pm2 stop file-server
+pkill -f file-server
 
-
+pm2 stop file-server
