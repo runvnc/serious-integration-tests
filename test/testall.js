@@ -56,17 +56,17 @@ describe('backup complete integration', function() {
     })
   })
  
-  describe('#restore()', function() {
+  describe('#restore()', function(done) {
     it('should restore a backup', function(done) {
-      this.timeout(21000); 
+      this.timeout(33000); 
       sdk.restore(function(ret) {
         ret.should.be.ok;
-        setTimeout(function() { done(); }, 15000);
+        setTimeout(function() { done(); }, 25000);
       });
      });
   });
 
-  describe('#listBackups()', function() {
+  describe('#listBackups()', function(done) {
     it('should list backups', function(done) {
       sdk.listBackups(function(ret) {
         ret.length.should.be.above(0);
