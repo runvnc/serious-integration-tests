@@ -17,6 +17,10 @@ echo "Make sure libsodium is installed first, then zeromq."
 echo "If you aren't sure please cancel and make sure they are installed."
 read input
 
+if [ ! -d "node_modules ]; then
+  npm install
+fi
+
 echo Need pm2
 if hash pm2 2>/dev/null; then
   echo pm2 found.
