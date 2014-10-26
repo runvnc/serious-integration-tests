@@ -17,7 +17,7 @@ echo "Make sure libsodium is installed first, then zeromq."
 echo "If you aren't sure please cancel and make sure they are installed."
 read input
 
-if [ ! -d "node_modules ]; then
+if [ ! -d "node_modules" ]; then
   npm install
 fi
 
