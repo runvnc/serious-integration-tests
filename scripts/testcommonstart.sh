@@ -1,5 +1,4 @@
 #!/bin/bash
-./prereq.sh
 
 echo Making sure pgrep and pkill are installed.
 set -e

@@ -25,6 +25,6 @@ else
   cd serious-backup-device && NODE_TLS_REJECT_UNAUTHORIZED=0 npm start &
   set +e
   echo Waiting a few seconds so backup device server can start.
-  sleep 5
+  sleep 20
 fi
 
