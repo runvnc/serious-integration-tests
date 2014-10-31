@@ -17,7 +17,7 @@ else
   echo "Starting (cloud) backup server."  
   export NODE_TLS_REJECT_UNAUTHORIZED=0
   set -e
-  cd serious-backup-server && NODE_TLS_REJECT_UNAUTHORIZED=0 npm start &
+  cd serious-backup-server && NODE_TLS_REJECT_UNAUTHORIZED=0 ./start.sh &
   set +e
   echo Waiting a few seconds so server can start.
   sleep 5

@@ -3,6 +3,7 @@ var should = require('should')
 
 describe('backup complete integration', function() {
   var backupKey = null;
+  var backupTime = null;
 
   before(function(done) {
     if (process.env.hasOwnProperty('TEST_REMOTE') &&
@@ -25,14 +26,19 @@ describe('backup complete integration', function() {
   });
  
   describe('#backup()', function() {
-    it('should start the backup and return a backup key', function(done) {
-      this.timeout(20000);
-      sdk.backup(function(key) {
+    it('should start the backup and return a backup time', function(done) {
+      this.timeout(26000);
+      sdk.backup(function(data) {
+        console.log('backup returns: ***********');
+        console.log(data);
+        var key = data.key;
         key.should.be.ok;
         key.length.should.be.greaterThan(4);
         backupKey = key;
+        data.time.should.be.ok;
+        backupTime = data.time;
         // wait a second for backup to start.
-        setTimeout(function(){ done(); },1000);        
+        setTimeout(function(){ done(); },30000);        
       });
     })
   })
@@ -48,7 +54,7 @@ describe('backup complete integration', function() {
           if (currStatus.activeCount == 0) {
             return done();
           } else {
-            setTimeout(function() { checkFinished(); }, 15000);
+            setTimeout(function() { checkFinished(); }, 25000);
           }
         });
       }
@@ -57,9 +63,9 @@ describe('backup complete integration', function() {
   })
  
   describe('#restore()', function(done) {
-    it('should restore a backup', function(done) {
+    it('should restore the backup', function(done) {
       this.timeout(45000); 
-      sdk.restore(function(ret) {
+      sdk.restore(backupKey, backupTime, function(ret) {
         ret.should.be.ok;
         setTimeout(function() { done(); }, 36000);
       });

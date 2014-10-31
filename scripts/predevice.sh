@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm restore/*
+
 if [ ! -d "serious-backup-device" ]; then
   git submodule init >/dev/null
   git submodule update >/dev/null
