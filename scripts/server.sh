@@ -20,7 +20,7 @@ if [ ! -f "serious-backup-server/package.json" ]; then
   exit 1
 fi
 
-echo Outputting logs from job-processor and file-server.
+echo Outputting logs from file-server.
 
 tail -f ~/.pm2/logs/* | $(npm bin)/bunyan -o short &
 
@@ -36,10 +36,6 @@ echo "Killing backup server"
 pkill -f server.js
 
 pkill -f file-server.js
-
-echo "Stopping job-processor"
-pm2 stop job-processor
-pkill -f job-processor
 
 pm2 stop file-server
 pkill -f file-server

@@ -8,8 +8,6 @@ pkill --help >/dev/null
 
 set +e
 
-echo Outputting logs from job-processor and file-server.
-
 tail -f ~/.pm2/logs/* | $(npm bin)/bunyan -o short &
 
 echo Running tests on local system with mocha.
