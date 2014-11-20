@@ -42,6 +42,8 @@ describe('backup complete integration', function() {
   describe('#listBackups()', function(done) {
     it('should list backups', function(done) {
       sdk.listBackups(function(ret) {
+        console.log('listbackups returns');
+        console.log(ret);
         ret.length.should.be.above(0);
         console.log("backups:");
         console.log(ret);
