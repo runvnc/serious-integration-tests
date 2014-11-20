@@ -15,28 +15,20 @@ describe('backup complete integration', function() {
     }
   })
 
-  describe('#qrimagetag()', function() {
-    it('should return an image tag', function(done) {
-      sdk.QRImageTag('dummy-backup-key', function(tag) {
-        it.should.match(/\<img(.)*/);
-        done();
-      });
-    });
-  });
- 
   describe('#backup()', function() {
     it('should start the backup and return a backup time', function(done) {
-      this.timeout(26000);
+      this.timeout(36000);
       sdk.backup(function(data) {
+        console.log("sdk backup data is");
+        console.log(data);
         data.time.should.be.ok;
         backupTime = data.time;
         // wait a second for backup to start.
-        setTimeout(function(){ done(); },30000);        
+        setTimeout(function(){ done(); },34000);        
       });
     })
   })
 
-/*
   describe('#restore()', function(done) {
     it('should restore the backup', function(done) {
       this.timeout(45000); 
@@ -57,6 +49,5 @@ describe('backup complete integration', function() {
       });
     });
   });
-*/
  
 });
